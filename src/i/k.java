@@ -1,63 +1,37 @@
 package i;
-import static org.junit.Assert.assertTrue;
-import org.junit.Test;
-import com.bridgelabz.designprinciples.CensusException.ExceptionType;
-import junit.framework.Assert;
-public class StateCensusAnalyserTest {
+import java.util.Scanner;
+public class StateCensusAnalyser 
+{
+	private static final String CSV_FILE_STATES= "C:\\Users\\HP LAP\\Desktop\\BridgeLabz\\DesignPrinciples\\designprinciples\\IndiaStateCode.CSV";
 	private static final String CSV_FILE = "C:\\Users\\HP LAP\\Desktop\\BridgeLabz\\DesignPrinciples\\designprinciples\\IndiaStateCensusData.CSV";
-	private static final String CSV_FILE_INCOR = "C:\\Users\\HP LAP\\Desktop\\BridgeLabz\\DesignPrinciples\\designprinciples\\IndiaStateCensusData1.CSV";
-	private static final String CSV_FILE_DELIMITER = "C:\\Users\\HP LAP\\Desktop\\BridgeLabz\\DesignPrinciples\\designprinciples\\InvalidDelimiter.CSV";
-	private static final String CSV_FILE_HEADER = "C:\\Users\\HP LAP\\Desktop\\BridgeLabz\\DesignPrinciples\\designprinciples\\InvalidHeader.CSV";
 
-	/**
-	 * Rigorous Test :-)
-	 * 
-	 */
-	@Test
-	public void givenCensusFileNumberOfRecordsMatches() throws Exception {
-		int num = new CSVStateCensus().CSVStateCensusLoader(CSV_FILE);
-		Assert.assertEquals(30, num);
-		Assert.assertEquals(29, num);
+	private static void loadStateCensus() throws Exception {
+		new CSVStateCensus().CSVStateCensusLoader(CSV_FILE);
+	}
+	private static void loadStateCode() throws Exception {
+		new CSVStates().CSVStateCodeLoader(CSV_FILE_STATES);
 	}
 
-	@Test
-	public void testThrowsExceptionWhenInvalidFileUsed() throws CensusException {
-		boolean thrown = false;
-		try {
-			new CSVStateCensus().CSVStateCensusLoader(CSV_FILE_INCOR);
-			new CSVStateCensus().CSVStateCensusLoader(CSV_FILE);
-		} catch (Exception e) {
-			thrown = true;
-			System.out.println("Provided file is incorrect.Please retry");
-		}
-		assertTrue(thrown);
-	}
-	@Test
-	public void testThrowsExceptionWhenInvalidDelimiterUsed() {
-		boolean thrown = false;
-		try {
-			new CSVStateCensus().CSVStateCensusLoader(CSV_FILE_DELIMITER);
-			new CSVStateCensus().CSVStateCensusLoader(CSV_FILE);
-		} catch (Exception e) {
-			thrown = true;
-			System.out.println("Provided delimiter in file is incorrect.Please retry");
-		}
-		assertTrue(thrown);
-	}
+    public static void main( String[] args ) throws Exception
+    {
+        System.out.println( "Welcome to State Census Analyser" );
+        Scanner sc= new Scanner(System.in);
 
-	@Test
-	public void testThrowsExceptionWhenInvalidHeaderUsed() {
-		boolean thrown = false;
-		try {
-			new CSVStateCensus().CSVStateCensusLoader(CSV_FILE);
-		} catch (Exception e) {
-			thrown = true;
-			System.out.println("Provided header in file is incorrect.Please retry");
-		}
-		assertTrue(thrown);
-	}
-
-
+        System.out.println("Press the number to indicate your choice:");
+        System.out.println("1.Load Indian State Census Data");
+        System.out.println("2.Load Indian State Code Data");
+        System.out.println("Press any other key to exit");
+        int choice= sc.nextInt();
+        switch (choice) {
+		case 1:
+			loadStateCensus();
+			break;
+		case 2:
+			loadStateCode();
+			break;	
+		default:
+			System.out.println("You have successfully exited the program");
+			break;
+        }
+    }
 }
-
-
